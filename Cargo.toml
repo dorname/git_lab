@@ -1,0 +1,15 @@
+[package]
+name = "my_git_lab_impl"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+bstr = "1.6.2"
+byteorder = "1.4.3"
+deflate = "1.0.0"
+encoding_rs = "0.8.33"
+flate2 = "1.0.27"
+rust-crypto = "0.2.36"
