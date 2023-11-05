@@ -32,7 +32,8 @@ fn test() {
      * 
      */
     fn decode_tree_object(){
-        let tree_object_file:Vec<u8> = fs::read("src\\testfile\\28\\7991643b4e88317f0f6980828e89e449208f6e").expect("文件读取成功");
+        let tree_object_file:Vec<u8> = fs::read("/project/git_lab/src/testfile/28/7991643b4e88317f0f6980828e89e449208f6e").expect("文件读取成功");
+
         let mut decoder =  ZlibDecoder::new(&tree_object_file[..]);
         let mut tree_object_bytes:Vec<u8> = Vec::new();
         decoder.read_to_end(&mut tree_object_bytes).expect("提取成功");

@@ -1,9 +1,12 @@
 use std::vec;
-
 use bstr::ByteSlice;
-
 mod blob;
 mod tree;
+mod data;
+mod encode;
+mod obj_type;
+mod decode;
+mod file_io;
 fn main() {
     /**
      * 树对象的解析策略：

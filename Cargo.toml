@@ -1,5 +1,5 @@
 [package]
-name = "my_git_lab_impl"
+name = "git_lab"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,4 @@ deflate = "1.0.0"
 encoding_rs = "0.8.33"
 flate2 = "1.0.27"
 rust-crypto = "0.2.36"
+sha-1 = "0.10.1"
