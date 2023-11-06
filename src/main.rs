@@ -1,7 +1,6 @@
 use std::vec;
 use bstr::ByteSlice;
 mod blob;
-mod tree;
 mod data;
 mod encode;
 mod obj_type;
