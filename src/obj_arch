@@ -1,4 +1,6 @@
-"tree 72\x00100644 demo.txt\x000\xD7M%\x84B\xC7\xC6U\x12\xEA\xFA\xB4tV\x8D\xD7\x06\xC40100644 test.txt\x00\xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7"
+"tree 72\x00
+100644 demo.txt\x00 0\xD7M%\x84B\xC7\xC6U\x12\xEA\xFA\xB4tV\x8D\xD7\x06\xC40
+100644 test.txt\x00 \xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7"
 "tree 72 100644 demo.txt 30d74d258442c7c65512eafab474568dd706c430100644 test.txt 9dbf5aae1a3862dd1526723246b20206e5fc37"
 
 "commit 171\x00tree dcc20f823c15ba6394596b475c03d08cdc4417a0\nauthor dorname <lgqfighting@163.com> 1699193914 +0800\ncommitter dorname <lgqfighting@163.com> 1699193914 +0800\n\nfirst commit\n"

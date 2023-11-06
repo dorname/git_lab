@@ -73,6 +73,9 @@ fn hex_test() {
             220, 194, 15, 130, 60, 21, 186, 99, 148, 89, 107, 71, 92, 3, 208, 140, 220, 68, 23, 160
         ])
     );
+    println!("{:?}",hex::encode(b"\xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7"));
+    println!("{:?}",hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37").unwrap());
+    assert_eq!(hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37").unwrap(), b"\xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7");
 }
 
 
