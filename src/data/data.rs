@@ -34,7 +34,7 @@ impl Data {
         let mut content = String::from("");
         for node in nodes{
 
-            content+=&format!("{} {}\x00{}",&node.data_type.clone(),&node.file_name,hex::decode(&node.get_sha_1()).unwrap());
+            content+=&format!("{} {}\x00{}",&node.data_type.clone(),&node.file_name,&node.get_sha_1());
         }
         println!("{:?}",format!("tree {}\x00{}",content.len(),content));
         // Data {

@@ -164,6 +164,7 @@ dependencies = [
  "hex",
  "rand 0.8.5",
  "rust-crypto",
+ "rustc-hex",
  "sha-1",
 ]
 
@@ -313,6 +314,12 @@ dependencies = [
  "rustc-serialize",
  "time",
 ]
+
+[[package]]
+name = "rustc-hex"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0ceb8ce7a5e520de349e1fa172baeba4a9e8d5ef06c47471863530bc4972ee1e"
 
 [[package]]
 name = "rustc-serialize"

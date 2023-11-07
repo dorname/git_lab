@@ -74,7 +74,9 @@ fn hex_test() {
         ])
     );
     println!("{:?}",hex::encode(b"\xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7"));
-    println!("{:?}",hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37").unwrap());
+    if let Ok(bytes) = hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37") {
+        println!("{:?}", bytes.iter().map(|b| format!("{:02x}", b)).collect::<String>());
+    }
     assert_eq!(hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37").unwrap(), b"\xBD\x9D\xBFZ\xAE\x1A8b\xDD\x15&r2F\xB2\x02\x06\xE5\xFC7");
 }
 
@@ -132,4 +134,31 @@ fn decode_tree_test() {
         }
     }
     println!("{:?}", decode_tree_object());
+}
+
+#[test]
+fn test_hex(){
+    use hex::FromHex;
+    use rustc_hex::ToHex;
+       // 十六进制字符串
+       let hex_string = "30d74d258442c7c65512eafab474568dd706c430";
+
+       // 将十六进制字符串转换为字节序列
+       let byte_sequence = hex::decode(hex_string).expect("Invalid hex string");
+   
+       // 输出字节序列
+       println!("Byte Sequence: {:?}", byte_sequence.as_bstr().to_os_str().unwrap()+"1");
+   
+       // 原始字符串
+       let original_string = String::from("Hello, ");
+
+       // 不可变字节字符串
+       let byte_string: &[u8] = b"world";
+   
+       // 使用 bstr::B 类型拼接字节字符串和字符串
+        let result = [bstr::B(original_string.as_bytes()),byte_string].concat();
+   
+       // 输出拼接后的结果
+       println!("{}", result.as_bstr().to_string());
+
 }
