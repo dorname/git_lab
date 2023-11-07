@@ -147,7 +147,7 @@ fn test_hex(){
        let byte_sequence = hex::decode(hex_string).expect("Invalid hex string");
    
        // 输出字节序列
-       println!("Byte Sequence: {:?}", byte_sequence.as_bstr().to_os_str().unwrap()+"1");
+       println!("Byte Sequence: {:?}", byte_sequence.as_bstr().to_os_str().unwrap());
    
        // 原始字符串
        let original_string = String::from("Hello, ");
