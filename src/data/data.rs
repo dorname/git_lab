@@ -17,32 +17,47 @@ struct Data {
     file_name:String
 }
 impl Data {
-    fn new(content: String, code: String, data_type: String) -> Self {
+    fn new(content: String, code: String, data_type: String,file_name:String) -> Self {
         Data {
             content: content,
             code: code,
             data_type: data_type,
             nodes:None,
-            file_name:rand::thread_rng()
-            .sample_iter(&Alphanumeric)
-            .take(10)
-            .map(char::from)
-            .collect()
+            file_name:file_name
+            // file_name:rand::thread_rng()
+            // .sample_iter(&Alphanumeric)
+            // .take(10)
+            // .map(char::from)
+            // .collect()
         }
     }
-    fn new_tree(code: String, data_type: String,nodes:Vec<Data>)->(){
-        let mut content = String::from("");
-        for node in nodes{
-
-            content+=&format!("{} {}\x00{}",&node.data_type.clone(),&node.file_name,&node.get_sha_1());
+    fn new_tree(code: String, data_type: String,nodes:Vec<Data>)->Self{
+        // let mut content = String::from("");
+        let mut result = Vec::<&[u8]>::new();
+        let mut code = "".to_string();
+        let mut file_name = "".to_string();
+        let mut content = "".to_string();
+        let mut content_b = bstr::B("".as_bytes());
+        for node in &nodes{
+            code = node.code.clone();
+            file_name = node.file_name.clone();
+            content = format!("{} {}\x00",code,file_name);
+            content_b = bstr::B(content.as_bytes());
+            result.push(content_b);
+            result.push(node.get_sha_1().as_bytes());
+            // let result = [bstr::B(content.as_bytes()),&node.get_sha_1().as_bytes()].concat();
         }
-        println!("{:?}",format!("tree {}\x00{}",content.len(),content));
-        // Data {
-        //     content: content,
-        //     code: code,
-        //     data_type: data_type,
-        //     nodes:Some(nodes)
-        // }
+        let first_part = format!("tree {}\x00",result.concat().len());
+        // println!("{:?}",format!("tree {}\x00{}",content.len(),content));
+        result.insert(0, first_part.as_bytes());
+        println!("{:?}",result);
+        Data {
+            content: "".to_string(),
+            code: code,
+            file_name:"tree".to_string(),
+            data_type: data_type,
+            nodes:Some(nodes)
+        }
     }
     fn get_data(&self) -> String {
         format!(
@@ -94,7 +109,7 @@ fn test() {
     // let content: String = String::from("test");
     let code: String = String::from("100644");
     let data_type: String = obj_type::BLOB.to_string();
-    let blob = Data::new(content, code, data_type);
+    let blob = Data::new(content, code, data_type,"demo.txt".to_string());
     println!("{}", blob);
     println!("{}", encode::get_sha_1(blob.get_data()));
     //rust中\a是无效转义字符 其对应的响铃字符为\x07,在\a在ruby中是合法的转义字符
@@ -133,8 +148,15 @@ fn tree_test() {
 
 #[test]
 fn new_tree_test(){
-    let blob_1 = Data::new("test_one".to_string(),"100064".to_string(),"blob".to_string());
-    let blob_2 = Data::new("test_two".to_string(),"100064".to_string(),"blob".to_string());
+    // println!("{:?}","30d74d258442c7c65512eafab474568dd706c430100644".as_bytes().as_bstr());
+    let blob_1 = Data::new("what is up, doc?".to_string(),"100064".to_string(),"blob".to_string(),"test.txt".to_string());
+    let blob_2 = Data::new("test".to_string(),"100064".to_string(),"blob".to_string(),"demo.txt".to_string());
     let nodes = vec![blob_1,blob_2];
     let tree = Data::new_tree("040000".to_string(),"tree".to_string(),nodes);
+    // println!("{:?}",encode::get_sha_1(tree.content));
+    // let mut hasher = Sha1::new();
+    // hasher.update(bstr::B(tree.content.as_bytes()));
+    // let result = hasher.finalize();
+    // // format!("{:x}", result)
+    // println!("{:x}", result);
 }
