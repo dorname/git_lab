@@ -3,6 +3,8 @@ use flate2::read::ZlibDecoder;
 use std::io;
 use std::io::prelude::*;
 
+use crate::encode;
+
 // Uncompresses a Zlib Encoded vector of bytes and returns a string or error
 // Here &[u8] implements Read
 
@@ -66,6 +68,10 @@ fn hex_test() {
     println!(
         "{:?}",
         hex::decode("dcc20f823c15ba6394596b475c03d08cdc4417a0").unwrap()
+    );
+    println!(
+        "{:?}",
+        hex::decode("bd9dbf5aae1a3862dd1526723246b20206e5fc37").unwrap().as_bstr()
     );
     println!(
         "{:?}",
@@ -153,12 +159,10 @@ fn test_hex(){
        let original_string = String::from("Hello, ");
 
        // 不可变字节字符串
-       let byte_string: &[u8] = b"world";
+    //    let byte_string: &[u8] = b"world";
    
        // 使用 bstr::B 类型拼接字节字符串和字符串
-        let result = [bstr::B(original_string.as_bytes()),byte_string].concat();
-   
-       // 输出拼接后的结果
-       println!("{}", result.as_bstr().to_string());
-
+        let result = [original_string.as_bytes(), &byte_sequence[..]].concat();
+        // let res = encode::sha_1(result);
+        println!("{:?}",result.as_bstr());
 }
