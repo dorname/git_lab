@@ -122,24 +122,26 @@ fn decode_tree_test() {
         decoder
             .read_to_end(&mut tree_object_bytes)
             .expect("提取成功");
-        let type_data_index = tree_object_bytes.find_byte(0x00).unwrap();
+        println!("{:?}",tree_object_bytes.as_bstr());
+        // let type_data_index = tree_object_bytes.find_byte(0x00).unwrap();
 
-        let mut obj_data_arr: Vec<u8> = tree_object_bytes.drain(type_data_index + 1..).collect();
-        let type_data = String::from_utf8_lossy(&tree_object_bytes);
-        println!("{:?}", type_data.to_string());
-        while let Some(index) = obj_data_arr.find_byte(0x00) {
-            println!(
-                "子对象：{:?}",
-                String::from_utf8_lossy(&obj_data_arr[..index])
-            );
-            println!(
-                "Hash：{:?}",
-                bytes_to_hex_string(&obj_data_arr[index + 1..index + 21])
-            );
-            obj_data_arr.drain(..index + 21);
-        }
+        // let mut obj_data_arr: Vec<u8> = tree_object_bytes.drain(type_data_index + 1..).collect();
+        // let type_data = String::from_utf8_lossy(&tree_object_bytes);
+        // println!("{:?}", type_data.to_string());
+        // while let Some(index) = obj_data_arr.find_byte(0x00) {
+        //     println!(
+        //         "子对象：{:?}",
+        //         String::from_utf8_lossy(&obj_data_arr[..index])
+        //     );
+        //     println!(
+        //         "Hash：{:?}",
+        //         bytes_to_hex_string(&obj_data_arr[index + 1..index + 21])
+        //     );
+        //     obj_data_arr.drain(..index + 21);
+        // }
     }
-    println!("{:?}", decode_tree_object());
+    decode_tree_object()
+    // println!("{:?}", decode_tree_object());
 }
 
 #[test]
