@@ -5,8 +5,10 @@ use crate::encode;
 use crate::obj_type;
 use anyhow::Error;
 use bstr::ByteSlice;
+use hex::encode;
 use sha1::{Digest, Sha1};
 use std::clone;
+use std::io::Read;
 use std::{fmt, result};
 
 #[derive(Clone)]
@@ -131,6 +133,8 @@ fn tree_test() {
     hasher.update(content);
     let result = hasher.finalize();
     // format!("{:x}", result)
+    println!("{:?}",content.as_bstr());
+
     println!("{:x}", result);
     // let result =  encode::zlib_encode(content.as_bytes());
     // println!("{:?}",result.unwrap().as_bstr());
@@ -139,22 +143,20 @@ fn tree_test() {
 
 #[test]
 fn new_tree_test(){
-    // println!("{:?}","30d74d258442c7c65512eafab474568dd706c430100644".as_bytes().as_bstr());
-    let blob_1 = Data::new("what is up, doc?".as_bytes().to_vec(),"100064".to_string(),"blob".to_string(),"test.txt".to_string());
-    let blob_2 = Data::new("test".as_bytes().to_vec(),"100064".to_string(),"blob".to_string(),"demo.txt".to_string());
-    // let res = "tree 108\x00".to_string()+&blob_1.get_tree_data()+&blob_2.get_tree_data();
-    // println!("{:?}",encode::sha_1(res.as_bytes().to_vec()));
+    let blob_1 = Data::new("what is up, doc?".as_bytes().to_vec(),"100644".to_string(),"blob".to_string(),"test.txt".to_string());
+    let blob_2 = Data::new("test".as_bytes().to_vec(),"100644".to_string(),"blob".to_string(),"demo.txt".to_string());
     let tree = Data::new_tree("40000".to_string(),"tree".to_string(),vec![blob_2,blob_1]);
     // println!("{:?}",blob_1.get_tree_data().as_bstr());
     // println!("{:?}",blob_2.get_tree_data().as_bstr());
-    // println!("{:?}",encode::sha_1(tree.content.as_slice());
-    // println!("{:?}",encode::sha_1(tree.content));
-    let hex_string = "bd9dbf5aae1a3862dd1526723246b20206e5fc37";
+    println!("{:?}",tree.content.as_bstr());
+    println!("{:?}",encode::sha_1(tree.content)); //成功输出树对象的正确hash：dcc20f823c15ba6394596b475c03d08cdc4417a0
+}
+#[test]
+fn unleagal_test(){
+    let hex_string = "1a3862";
+    let umleagal = "\x1A8b".to_string();
     let bytes = hex::decode(hex_string).unwrap();
-    let escaped_string: String = bytes
-        .iter()
-        .map(|&byte| format!("\\x{:02X}", byte))
-        .collect();
-    println!("{}", escaped_string);
-    
+    // println!("{:?}:{:?}",bytes,bytes.as_bstr().to_string().replace("\u{1a}","\x1A"));
+    println!("{:?}","\\x1A");
+    println!("{:?}",umleagal);
 }
