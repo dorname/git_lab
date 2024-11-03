@@ -1,0 +1,3 @@
+# Git实验
+本项目受到社区大佬马哥的启发，引发了我对git的好奇心，通过对git文档的学习，决定用rust去解析和理解git的存储结构。
+目前做了三个主要git对象blob、tree和commit的encode和decode实验。
